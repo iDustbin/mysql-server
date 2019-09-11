@@ -1,6 +1,6 @@
 mysql-server
 =========
-![MySQL Server](https://icon2.kisspng.com/20180802/afy/kisspng-mysql-logo-database-join-portable-network-graphics-lee-qixian-about-me-5b632d901b3ba4.3877836315332263841116.jpg)
+![MySQL Server](https://sqlbackupandftp.com/blog/wp-content/uploads/2018/11/logo-mysql-170x170.png)
 Format: ![Alt Text](url)
 
 Install and setup mysql-server.
