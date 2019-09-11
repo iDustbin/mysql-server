@@ -1,3 +1,5 @@
+---
+
 - name: Secure root user
   # If .my.cnf already exists, this will cause an mysql-root-password update.
   mysql_user:
