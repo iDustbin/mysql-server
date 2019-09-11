@@ -1,14 +1,17 @@
 mysql-server
 =========
+![MySQL Server](https://upload.wikimedia.org/wikipedia/de/1/1f/Logo_MySQL.svg)
+Format: ![Alt Text](url)
 
 Install and setup mysql-server.
 
 # Build Status
 ![Build Status](https://travis-ci.org/iDustbin/mysql-server.svg?branch=master "https://travis-ci.org/iDustbin/mysql-server/") | [mysql-server](https://travis-ci.org/iDustbin/mysql-server/)
 
+# Donation
+[![Donate Bitcoin](https://img.shields.io/badge/donate-€10-orange.svg)](http://example.com/donate-bitcoin/?amount=10&currency=EUR)
 
 # Example playbook
-
     - hosts: databases
       roles:
         - mysql-server
@@ -25,3 +28,9 @@ Install and setup mysql-server.
             host: "%"
             password: <some-password>
             priv: "master.*:ALL"
+
+# Todo´s
+- [x] @mentions, #refs, [links](), **formatting**, and <del>tags</del> supported
+- [x] list syntax required (any unordered or ordered list supported)
+- [x] this is a complete item
+- [ ] this is an incomplete item
