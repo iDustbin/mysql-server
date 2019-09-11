@@ -1,0 +1,152 @@
+---
+
+- name: Install packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+   - "mysql-community-server={{ mysql_version }}*"
+   - "mysql-community-client={{ mysql_version }}*"
+   - "mysql-common"
+   - "python-mysqldb"
+   - "mysql-utilities"
+   - "mysqltuner"
+  tags:
+    - mysql
+
+- name: Tweak systemd file
+  when: codename == "jessie" and codename == "stretch"
+  register: systemd
+  template:
+    src: "etc/systemd/system/{{ item }}.j2"
+    dest: "/etc/systemd/system/{{ item }}"
+    mode: 0644
+  with_items:
+    - "mysql.service"
+  notify: restart mysql_server
+  tags:
+    - mysql
+
+- name: Reload systemd files
+  when: systemd.changed
+  command: "systemctl daemon-reload"
+  tags:
+    - tomcat
+
+- name: Start and enable MySQL
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+  tags:
+    - mysql
+
+# - name: Secure root user
+#   # If .my.cnf already exists, this will cause an mysql-root-password update.
+#   mysql_user:
+#     config_file: /root/.my.cnf
+#     name: root
+#     host: "{{ item }}"
+#     password: "{{ mysql_server_root_password | mandatory }}"
+#     priv: "*.*:ALL,GRANT"
+#     check_implicit_admin: true
+#   with_items:
+#     - "localhost"
+#   tags:
+#     - mysql
+
+# - name: Create .my.cnf with root password credentials
+#   template:
+#     src: "client.my.cnf.j2"
+#     dest: "/root/.my.cnf"
+#     owner: root
+#     group: root
+#     mode: 0600
+#   tags:
+#     - mysql
+
+# - name: Secure root for other loginhosts
+#   mysql_user:
+#     config_file: /root/.my.cnf
+#     name: root
+#     host: "{{ item }}"
+#     password: "{{ mysql_server_root_password | mandatory }}"
+#     priv: "*.*:ALL,GRANT"
+#     check_implicit_admin: true
+#   with_items:
+#     - "127.0.0.1"
+#   tags:
+#     - mysql
+
+# # "when" condition just in case of broken hostname or fqdn
+# - name: Restrict root user
+#   when: item != "localhost"
+#   mysql_user:
+#     config_file: /root/.my.cnf
+#     name: root
+#     host: "{{ item }}"
+#     state: absent
+#     check_implicit_admin: true
+#   with_items:
+#     - "::1"
+#     - "{{ ansible_hostname }}"
+#     - "{{ ansible_fqdn }}"
+#   tags:
+#     - mysql
+
+# - name: Remove anonymous users
+#   mysql_user:
+#     config_file: /root/.my.cnf
+#     name: ''
+#     host: "{{ item }}"
+#     state: absent
+#     check_implicit_admin: true
+#   with_items:
+#     - localhost
+#     - "{{ ansible_hostname }}"
+#   tags:
+#     - mysql
+
+# - name: Remove test database
+#   mysql_db:
+#     config_file: /root/.my.cnf
+#     name: test
+#     state: absent
+#   tags:
+#     - mysql
+
+# - name: Create databases
+#   when: mysql_server_databases != ""
+#   mysql_db:
+#     config_file: /root/.my.cnf
+#     name: "{{ item.name }}"
+#     collation: "{{ item.collation | default('utf8_unicode_ci') }}"
+#     encoding: "{{ item.encoding | default('utf8mb4') }}"
+#     state: present
+#   with_items:
+#     - "{{ mysql_server_databases }}"
+#   tags:
+#     - mysql
+#     - createdb
+
+# - name: Create users
+#   when: mysql_server_users != ""
+#   mysql_user:
+#     config_file: /root/.my.cnf
+#     name: "{{ item.name }}"
+#     host: "{{ item.host | default('localhost') }}"
+#     password: "{{ item.password }}"
+#     priv: "{{ item.priv | default('*.*:USAGE') }}"
+#     state: present
+#     check_implicit_admin: true
+#   with_items: "{{ mysql_server_users }}"
+#   tags:
+#     - mysql
+#     - createdb
+
+# - name: Ensure mysql-server is up
+#   wait_for:
+#     port: 3306
+#     timeout: 30
+#   tags:
+#     - mysql

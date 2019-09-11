@@ -1,0 +1,32 @@
+---
+
+- name: repo - Add apt signing key
+  register: key
+  apt_key:
+    keyserver: "keys.gnupg.net"
+    id: "{{ item }}"
+    state: present
+  with_items:
+    - "0x8c718d3b5072e1f5"
+  tags:
+    - repo
+    - mysql
+
+- name: repo - Update keyring
+  when: key.changed
+  command: "apt-key update"
+  tags:
+    - repo
+    - mysql
+
+- name: repo - Add apt repositories
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - "deb http://repo.mysql.com/apt/debian/ {{ codename }} mysql-apt-config"
+    - "deb http://repo.mysql.com/apt/debian/ {{ codename }} mysql-{{ mysql_version }}"
+  tags:
+    - repo
+    - mysql

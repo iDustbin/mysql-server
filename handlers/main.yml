@@ -1,0 +1,21 @@
+---
+# handlers file for mysql-server
+- name: start mysql_server
+  service:
+    name: mysql
+    state: started
+
+- name: stop mysql_server
+  service:
+    name: mysql
+    state: stopped
+
+- name: restart mysql_server
+  service:
+    name: mysql
+    state: restarted
+
+- name: reload mysql_server
+  service:
+    name: mysql
+    state: reloaded

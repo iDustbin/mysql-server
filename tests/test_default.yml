@@ -1,0 +1,42 @@
+---
+
+- hosts:
+    - all
+
+  tasks:
+    - name: molecule - Set OS dependent variables
+      include_vars: "{{ item }}"
+      with_first_found:
+        - "../vars/{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}.yml"
+        - "../vars/{{ ansible_distribution | lower }}.yml"
+        - ../vars/default.yml
+
+    - name: molecule - Create goss tests
+      template:
+        src: "goss/goss.yml.j2"
+        dest: "/tmp/goss.yml"
+
+    - name: molecule - Run goss tests
+      register: goss
+      goss:
+        path: "/tmp/goss.yml"
+        format: junit
+        output_file: "/tmp/goss-result-{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}.xml"
+      ignore_errors: true
+
+    - name: molecule - Tweak goss results
+      replace:
+        dest: "/tmp/goss-result-{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}.xml"
+        regexp: '^(<testsuite) name="goss"'
+        replace: '\1 name="goss-{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}"'
+
+    - name: molecule - Fetch goss results
+      fetch:
+        src: "/tmp/goss-result-{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}.xml"
+        dest: "results/goss-result-{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}.xml"
+        flat: "yes"
+
+    - name: molecule - Set return code
+      when: goss.failed is defined and goss.failed
+      fail:
+        msg: "molecule verify failed"

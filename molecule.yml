@@ -1,0 +1,32 @@
+---
+
+driver:
+  name: docker
+
+docker:
+  containers:
+
+      - name: mysql-server-debian-9
+        image: debian:9
+        image_version: latest
+        command: /lib/systemd/systemd
+        privileged: true
+        ansible_groups:
+          - group1
+
+      - name: mysql-server-debian-8
+        image: debian:8
+        image_version: latest
+        command: /lib/systemd/systemd
+        privileged: true
+        ansible_groups:
+          - group1
+
+      - name: mysql-server-debian-7
+        image: debian:7
+        image_version: latest
+        ansible_groups:
+          - group1
+
+verifier:
+  name: goss
