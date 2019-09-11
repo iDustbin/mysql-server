@@ -29,9 +29,10 @@ Install Ansible Role for MySQL-Server 5.7 Community Edition
             priv: "master.*:ALL"
 
 # Tested on
-- [&#9745;] Debian - 6 - supported
-- [&#9745;] Debian - 7 - supported
+- [&#9745;] Debian - 6 - Squeeze supported
+- [&#9745;] Debian - 7 - Wheezy supported
 - [&#9745;] Debian - 8 - Jessie supported
+- [&#9745;] Debian - 9 - Stretch supported
 
 - [&#9745;] Centos - 7.2 supported
 - [&#9745;] Centos - 7.6 supported
