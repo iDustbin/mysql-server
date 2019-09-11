@@ -29,16 +29,14 @@ Install Ansible Role for MySQL-Server 5.7 Community Edition
             priv: "master.*:ALL"
 
 # Tested on
-- [x] Debian - 6 - **Squeeze**
-- [x] Debian - 7 - **Wheezy**
-- [x] Debian - 8 - **Jessie**
-- [x] Debian - 9 - **Stretch**
+- Debian - 6 - **Squeeze** [x] 
+- Debian - 7 - **Wheezy** [x] 
+- Debian - 8 - **Jessie** [x] 
+- Debian - 9 - **Stretch** [x] 
+- RHEL - 7.6 - **Maipo** [x] 
+- CentOS - **7.2** [x] 
+- CentOS - **7.6** [x] 
 
-- [x] Centos - **7.2**
-- [x] Centos - **7.6**
-
-- [x] RHEL - 7.6 - **Maipo**
-- [x] OL - **7.6**
 
 # Todo´s
 - [x] @mentions, #refs, [links](), **formatting**, and <del>tags</del> supported
