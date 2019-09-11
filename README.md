@@ -1,6 +1,6 @@
 mysql-server
 =========
-![MySQL Server](https://upload.wikimedia.org/wikipedia/de/1/1f/Logo_MySQL.svg)
+![MySQL Server](https://upload.wikimedia.org/wikipedia/de/1/1f/Logo_MySQL.svg=250x250))
 Format: ![Alt Text](url)
 
 Install and setup mysql-server.
