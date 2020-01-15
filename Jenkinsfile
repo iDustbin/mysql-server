@@ -60,7 +60,7 @@ node {
             playbook: 'playbook.yml',
             inventory: 'prod.ini',
             credentialsId: '',
-            colorized: true
+            colorized: true,
             extras: '--diff'
             )
     }
