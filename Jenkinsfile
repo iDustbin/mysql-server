@@ -5,6 +5,7 @@ node {
     
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
         ansiblePlaybook(
+			inventory: localhost,
             playbook: 'ping.yml',
             inventory: 'init.ini',
             credentialsId: '',
@@ -45,8 +46,8 @@ node {
             playbook: 'renew.yml',
             inventory: 'init.ini',
             credentialsId: '',
-            colorized: true
-            extras: '--diff'
+            extras: '--diff',
+			colorized: true
             )
     }
 }
