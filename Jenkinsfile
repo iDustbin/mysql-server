@@ -5,9 +5,8 @@ node {
     
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
         ansiblePlaybook(
-			inventory: localhost,
             playbook: 'ping.yml',
-            inventory: 'init.ini',
+			inventory: localhost,
             credentialsId: '',
             colorized: true)
     }
