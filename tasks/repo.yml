@@ -1,9 +1,5 @@
 ---
 
-- name: Install a .deb package from the internet
-  apt:
-    deb: https://dev.mysql.com/get/mysql-apt-config_0.8.18-1_all.deb
-
 # - name: repo - Add apt signing key
 #   register: key
 #   apt_key:
