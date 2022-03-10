@@ -1,16 +1,16 @@
 ---
 
-# - name: repo - Add apt signing key
-#   register: key
-#   apt_key:
-#     keyserver: "pgp.mit.edu"
-#     id: "{{ item }}"
-#     state: present
-#   with_items:
-#     - "0xc15f280e9c9dea44"
-#   tags:
-#     - repo
-#     - mysql
+- name: repo - Add apt signing key
+  register: key
+  apt_key:
+    keyserver: "pgp.mit.edu"
+    id: "{{ item }}"
+    state: present
+  with_items:
+    - "0x467b942d3a79bd29"
+  tags:
+    - repo
+    - mysql
 
 - name: repo - Add apt repositories
   apt_repository:
