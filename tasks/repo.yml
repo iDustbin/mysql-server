@@ -7,7 +7,7 @@
     id: "{{ item }}"
     state: present
   with_items:
-    - "5072E1F5"
+    - "A4A9406876FCBD3C456770C88C718D3B5072E1F5"
   tags:
     - repo
     - mysql
