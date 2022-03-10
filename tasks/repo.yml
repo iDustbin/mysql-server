@@ -3,11 +3,11 @@
 - name: repo - Add apt signing key
   register: key
   apt_key:
-    keyserver: "keys.gnupg.net"
+    keyserver: "pgp.mit.edu"
     id: "{{ item }}"
     state: present
   with_items:
-    - "3A79BD29"
+    - "5072E1F5"
   tags:
     - repo
     - mysql
