@@ -1,8 +1,7 @@
 ---
 
 - hosts: databases
-  roles:
-    - mysql-server
+
   vars:
     database_name: master
     mysql_server_bind_address: "{{ ansible_ens192.ipv4.address }}"
@@ -16,3 +15,5 @@
         host: "%"
         password: <some-password>
         priv: "master.*:ALL"
+  include_role:
+    - mysql-server
