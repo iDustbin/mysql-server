@@ -6,13 +6,13 @@
   vars:
     mysql_server_root_password: "foobar"
 
-  pre_tasks:
-    - name: molecule - Set OS dependent variables
-      include_vars: "{{ item }}"
-      with_first_found:
-        - "./vars/{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}.yml"
-        - "./vars/{{ ansible_distribution | lower }}.yml"
-        - ./vars/default.yml
+#  pre_tasks:
+#    - name: molecule - Set OS dependent variables
+#      include_vars: "{{ item }}"
+#      with_first_found:
+#        - "./vars/{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}.yml"
+#        - "./vars/{{ ansible_distribution | lower }}.yml"
+#        - ./vars/default.yml
 
   roles:
     - role: mysql-server

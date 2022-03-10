@@ -64,3 +64,11 @@ node {
             )
     }
 }
+
+        stage(" execute Ansible") {
+           steps {
+                ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'Ansible', playbook: 'playbook.yml'
+            }    
+        }    
+    }
+}
