@@ -1,5 +1,8 @@
+Jenkinsfile
 stage 'Checking connectivity'
 node {
+    git url: 'https://github.com/iDustbin/mysql-servers.git'
+
     deleteDir()
     checkout scm
     
