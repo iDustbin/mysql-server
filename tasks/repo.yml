@@ -1,23 +1,20 @@
 ---
 
-- name: repo - Add apt signing key
-  register: key
-  apt_key:
-    keyserver: "pgp.mit.edu"
-    id: "{{ item }}"
-    state: present
-  with_items:
-    - "0xc15f280e9c9dea44"
-  tags:
-    - repo
-    - mysql
+- name: Install a .deb package from the internet
+  apt:
+    deb: https://dev.mysql.com/get/mysql-apt-config_0.8.18-1_all.deb
 
-- name: repo - Update keyring
-  when: key.changed
-  command: "apt-key update"
-  tags:
-    - repo
-    - mysql
+# - name: repo - Add apt signing key
+#   register: key
+#   apt_key:
+#     keyserver: "pgp.mit.edu"
+#     id: "{{ item }}"
+#     state: present
+#   with_items:
+#     - "0xc15f280e9c9dea44"
+#   tags:
+#     - repo
+#     - mysql
 
 - name: repo - Add apt repositories
   apt_repository:

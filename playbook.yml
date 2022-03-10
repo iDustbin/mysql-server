@@ -1,18 +1,18 @@
 ---
 
-- hosts:
-    - all
-
-  vars:
-    mysql_server_root_password: "foobar"
-
-#  pre_tasks:
-#    - name: molecule - Set OS dependent variables
-#      include_vars: "{{ item }}"
-#      with_first_found:
-#        - "./vars/{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}.yml"
-#        - "./vars/{{ ansible_distribution | lower }}.yml"
-#        - ./vars/default.yml
-
+- hosts: databases
   roles:
-    - role: mysql-server
+    - mysql-server
+  vars:
+    database_name: master
+    mysql_server_bind_address: "{{ ansible_ens192.ipv4.address }}"
+    mysql_server_root_password: <some-password>
+    mysql_server_databases:
+      - name: "{{ database_name }}"
+        encoding: latin1
+        collation: latin1_general_ci
+    mysql_server_users:
+      - name: webdev
+        host: "%"
+        password: <some-password>
+        priv: "master.*:ALL"
